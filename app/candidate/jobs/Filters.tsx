@@ -22,9 +22,9 @@ export default function Filters({ categories, locations }: FiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [category, setCategory] = useState(searchParams.get("category") || "");
-  const [location, setLocation] = useState(searchParams.get("location") || "");
+  const [search, setSearch] = useState<string>(searchParams.get("search") || "");
+  const [category, setCategory] = useState<string>(searchParams.get("category") || "");
+  const [location, setLocation] = useState<string>(searchParams.get("location") || "");
 
   const updateParams = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -57,7 +57,7 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Categories</option>
-        {categories.map((cat) => (
+        {categories.map((cat: Category) => (
           <option key={cat.category} value={cat.category}>
             {cat.category} ({cat._count})
           </option>
@@ -72,7 +72,7 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Locations</option>
-        {locations.map((loc) => (
+        {locations.map((loc: Location) => (
           <option key={loc.location} value={loc.location}>
             {loc.location} ({loc._count})
           </option>
