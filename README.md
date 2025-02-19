@@ -1,6 +1,6 @@
-# Screenshots
+# Demo Video
 
-![screencapture-job-board-peach-vercel-app-2025-02-19-15_24_35](https://github.com/user-attachments/assets/93f18537-7eb2-4a60-a7aa-db28950e8320)
+https://github.com/user-attachments/assets/d9fe67de-aa5e-4ba5-b1c1-0bdd135e7383
 
 # Mini Job Board
 
