@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // Define proper types for categories and locations
 type Category = {
@@ -24,19 +24,31 @@ export default function Filters({ categories, locations }: FiltersProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const [search, setSearch] = useState<string>(searchParams.get("search") || "");
-  const [category, setCategory] = useState<string>(searchParams.get("category") || "");
-  const [location, setLocation] = useState<string>(searchParams.get("location") || "");
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [location, setLocation] = useState(searchParams.get("location") || "");
 
-  const updateParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (value) {
-      params.set(key, value);
-    } else {
-      params.delete(key);
-    }
-    router.push(`/candidate/jobs?${params.toString()}`);
-  };
+  // Function to update query parameters
+  const updateParams = useCallback(
+    (key: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      if (value) {
+        params.set(key, value);
+      } else {
+        params.delete(key);
+      }
+      router.push(`/candidate/jobs?${params.toString()}`);
+    },
+    [router, searchParams]
+  );
+
+  // Debounce effect for search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      updateParams("search", search);
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [search, updateParams]);
 
   return (
     <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -45,10 +57,7 @@ export default function Filters({ categories, locations }: FiltersProps) {
         placeholder="Search jobs..."
         className="border rounded-lg px-3 py-2 w-full md:w-1/3"
         value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-          updateParams("search", e.target.value);
-        }}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <select
         className="border rounded-lg px-3 py-2 w-full md:w-1/3"
@@ -59,9 +68,9 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Categories</option>
-        {categories.map((cat) => (
-          <option key={cat.category} value={cat.category}>
-            {cat.category} ({cat._count})
+        {categories.map(({ category, _count }) => (
+          <option key={category} value={category}>
+            {category} ({_count})
           </option>
         ))}
       </select>
@@ -74,14 +83,15 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Locations</option>
-        {locations.map((loc) => (
-          <option key={loc.location} value={loc.location}>
-            {loc.location} ({loc._count})
+        {locations.map(({ location, _count }) => (
+          <option key={location} value={location}>
+            {location} ({_count})
           </option>
         ))}
       </select>
     </div>
   );
 }
+
 
 
