@@ -4,15 +4,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 // Define proper types for categories and locations
-interface Category {
+type Category = {
   category: string;
   _count: number;
-}
+};
 
-interface Location {
+type Location = {
   location: string;
   _count: number;
-}
+};
 
 // Define props interface
 interface FiltersProps {
@@ -59,7 +59,7 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Categories</option>
-        {categories.map((cat: Category) => (
+        {categories.map((cat) => (
           <option key={cat.category} value={cat.category}>
             {cat.category} ({cat._count})
           </option>
@@ -74,7 +74,7 @@ export default function Filters({ categories, locations }: FiltersProps) {
         }}
       >
         <option value="">All Locations</option>
-        {locations.map((loc: Location) => (
+        {locations.map((loc) => (
           <option key={loc.location} value={loc.location}>
             {loc.location} ({loc._count})
           </option>
@@ -83,4 +83,5 @@ export default function Filters({ categories, locations }: FiltersProps) {
     </div>
   );
 }
+
 
