@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+// Define proper types for categories and locations
 interface Category {
   category: string;
   _count: number;
@@ -13,6 +14,7 @@ interface Location {
   _count: number;
 }
 
+// Define props interface
 interface FiltersProps {
   categories: Category[];
   locations: Location[];
@@ -81,3 +83,4 @@ export default function Filters({ categories, locations }: FiltersProps) {
     </div>
   );
 }
+
