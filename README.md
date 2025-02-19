@@ -40,7 +40,13 @@ DATABASE_URL=your_neon_db_connection_string
 ```
 Replace `your_neon_db_connection_string` with your actual Neon DB connection string.
 
-4. Run the development server:
+4. Run database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+5. Run the development server:
 
 ```bash
 npm run dev
@@ -59,10 +65,10 @@ This project can be easily deployed on Vercel. Follow these steps:
 4. In the Vercel project settings, add the `DATABASE_URL` environment variable with your Neon DB connection string.
 5. Deploy the project
 
-## Built With
+## Built With Tech Stack
 
-- [Next.js 15](https://nextjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [shadcn/ui](https://ui.shadcn.com/)
-- [Neon DB](https://neon.tech/)
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- Prisma (ORM)
+- PostgreSQL / MySQL (Database)
