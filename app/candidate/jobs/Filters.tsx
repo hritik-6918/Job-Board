@@ -1,25 +1,40 @@
-"use client"
+"use client";
 
-import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 
-export default function Filters({ categories, locations }: { categories: any[]; locations: any[] }) {
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  
-  const [search, setSearch] = useState(searchParams.get("search") || "")
-  const [category, setCategory] = useState(searchParams.get("category") || "")
-  const [location, setLocation] = useState(searchParams.get("location") || "")
+interface Category {
+  category: string;
+  _count: number;
+}
+
+interface Location {
+  location: string;
+  _count: number;
+}
+
+interface FiltersProps {
+  categories: Category[];
+  locations: Location[];
+}
+
+export default function Filters({ categories, locations }: FiltersProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [search, setSearch] = useState(searchParams.get("search") || "");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [location, setLocation] = useState(searchParams.get("location") || "");
 
   const updateParams = (key: string, value: string) => {
-    const params = new URLSearchParams(searchParams)
+    const params = new URLSearchParams(searchParams);
     if (value) {
-      params.set(key, value)
+      params.set(key, value);
     } else {
-      params.delete(key)
+      params.delete(key);
     }
-    router.push(`/candidate/jobs?${params.toString()}`)
-  }
+    router.push(`/candidate/jobs?${params.toString()}`);
+  };
 
   return (
     <div className="flex flex-col md:flex-row gap-4 mb-6">
@@ -29,16 +44,16 @@ export default function Filters({ categories, locations }: { categories: any[]; 
         className="border rounded-lg px-3 py-2 w-full md:w-1/3"
         value={search}
         onChange={(e) => {
-          setSearch(e.target.value)
-          updateParams("search", e.target.value)
+          setSearch(e.target.value);
+          updateParams("search", e.target.value);
         }}
       />
       <select
         className="border rounded-lg px-3 py-2 w-full md:w-1/3"
         value={category}
         onChange={(e) => {
-          setCategory(e.target.value)
-          updateParams("category", e.target.value)
+          setCategory(e.target.value);
+          updateParams("category", e.target.value);
         }}
       >
         <option value="">All Categories</option>
@@ -52,8 +67,8 @@ export default function Filters({ categories, locations }: { categories: any[]; 
         className="border rounded-lg px-3 py-2 w-full md:w-1/3"
         value={location}
         onChange={(e) => {
-          setLocation(e.target.value)
-          updateParams("location", e.target.value)
+          setLocation(e.target.value);
+          updateParams("location", e.target.value);
         }}
       >
         <option value="">All Locations</option>
@@ -64,5 +79,5 @@ export default function Filters({ categories, locations }: { categories: any[]; 
         ))}
       </select>
     </div>
-  )
+  );
 }
