@@ -59,15 +59,21 @@ yarn dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Deployment
+## Development Approach
+### Tech Stack Choices
+We chose **Next.js** for its flexibility in handling both server-side rendering (SSR) and static site generation (SSG), enhancing performance and SEO. **TypeScript** was integrated to ensure type safety and maintainability. **TailwindCSS** was used for rapid UI development with minimal custom styling. **Prisma** was selected as the ORM for its simplicity in database management and migrations.
 
-This project can be easily deployed on Vercel. Follow these steps:
+### Backend Architecture
+The backend is built using **Prisma ORM** to manage the database schema and interactions. We used **PostgreSQL** as the primary database due to its robustness and scalability. API routes in Next.js handle CRUD operations efficiently, ensuring a smooth user experience.
 
-1. Push your code to a GitHub repository.
-2. Sign up for a Vercel account if you haven't already.
-3. Create a new project on Vercel and link it to your GitHub repository.
-4. In the Vercel project settings, add the `DATABASE_URL` environment variable with your Neon DB connection string.
-5. Deploy the project
+### Frontend Implementation
+The frontend is structured using Next.js's App Router, utilizing a **component-based architecture** for reusability and maintainability. The job listings, candidate applications, and company job management features are built using React components with TailwindCSS for styling.
+
+### Challenges Faced & Solutions
+1. **Dynamic Routing Issues**: Managing dynamic paths for job details and applications was complex. We solved this by leveraging Next.js's file-based routing and dynamic segments.
+2. **State Management**: Handling state across multiple components became a challenge. We used **React Context API** to share state efficiently between pages.
+3. **Database Migrations**: Keeping schema changes in sync across different environments was difficult. Prisma’s migration tools helped in version-controlling and applying schema updates seamlessly.
+4. **Performance Optimization**: Large job listings caused slow rendering. We implemented **pagination and server-side fetching** to improve performance.
 
 ## Built With Tech Stack
 
